@@ -1,13 +1,21 @@
-const armor_class = document.getElementById("armor_class");
-const armor1 = document.createElement("h1")
+function info(b){
+  const name = document.getElementById("name")
+  const name1 = document.createElement("h1")
 
-const hit_points = document.getElementById("hit_points");
-const point1 = document.createElement("h1")
-
-const speed = document.getElementById("speed");
-const speed1 = document.createElement("h1")
+  name1.innerHTML=b.name
+  name.appendChild(name1)
+}
 
 function stats(b){
+
+const armor_class = document.getElementById("armor_class")
+const armor1 = document.createElement("h1")
+
+const hit_points = document.getElementById("hit_points")
+const point1 = document.createElement("h1")
+
+const speed = document.getElementById("speed")
+const speed1 = document.createElement("h1")
   //il punto serve per avere le immagini alla stessa altezza, lo rendo dello stesso colore dello sfondo
   armor1.innerHTML=b.armor_class + "<br><p style='color: DarkSlateGray;'>.</p>"
   armor_class.appendChild(armor1)
@@ -19,8 +27,9 @@ function stats(b){
   speed.appendChild(speed1)
 }
 
-fetch("https://www.dnd5eapi.co/api/monsters/adult-blue-dragon").then(r => r.json())
+fetch("https://www.dnd5eapi.co/api/monsters/boar").then(r => r.json())
 .then(b => {
   console.log(b)
   stats(b)
+  info(b)
   })
