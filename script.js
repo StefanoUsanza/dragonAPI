@@ -87,20 +87,71 @@ function stat(b){
   speed.appendChild(speed1)
 }
 
+const proficiencies = document.getElementById("proficiencies")
+let proficiencies1 = document.createElement("h4")
+
+const skills = document.getElementById("skills")
+const skills1 = document.createElement("h4")
+
+const cond = document.getElementById("cond")
+const cond1 = document.createElement("h4")
+
+const dm_im = document.getElementById("dm_im")
+const dm_im1 = document.createElement("h4")
+
+const dm_re = document.getElementById("dm_re")
+const dm_re1 = document.createElement("h4")
+
+const dm_vu = document.getElementById("dm_vu")
+const dm_vu1 = document.createElement("h4")
+
+const senses = document.getElementById("senses")
+const senses1 = document.createElement("h4")
+
+const languages = document.getElementById("languages")
+const languages1 = document.createElement("h4")
+
+const xp = document.getElementById("xp")
+const xp1 = document.createElement("h4")
+
+function ability(b){
+  for(let i=0; i<b.proficiencies.length; i++){
+  proficiencies1.innerHTML ="<h4 style='color: white;'>" + b.proficiencies[i].proficiency.name + ' (' + b.proficiencies[i].value + ")</h4>"
+  proficiencies.appendChild(proficiencies1)
+  proficiencies1 = document.createElement("h4")
+}
+
+}
+
 const btnSearch = document.getElementById("search")
 
 fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
 .then(b => { 
   search(b)//inserisci elementi nella barra di ricerca
   }).then(() =>{
+    fetch("https://www.dnd5eapi.co/api/monsters/adult-copper-dragon").then(r => r.json())
+    .then(b => { 
+      infos(b)//nome e informazioni del mostro
+      stat(b)//classe armatura vita velocità
+      stats(b)//statistiche
+      ability(b)//abilità
+    }).then(() =>{
     btnSearch.onclick  = () => {
       const input = document.getElementById("input").value
+      if(input==""){
+        console.log("ma anche no")
+      }
+      else{
       fetch("https://www.dnd5eapi.co/api/monsters/" + input).then(r => r.json())
       .then(b => {
+        console.log(b.proficiencies)
         infos(b)//nome e informazioni del mostro
         stat(b)//classe armatura vita velocità
         stats(b)//statistiche
+        ability(b)//abilità
       })
     }
+  }
   })
+})
  
