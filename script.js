@@ -275,6 +275,7 @@ fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
             stat(b)//classe armatura vita velocità
             stats(b)//statistiche
             ability(b)//abilità
+            actions(b)//attacchi
           })
         }
       }
