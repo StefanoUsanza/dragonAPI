@@ -201,7 +201,6 @@ lista =""
 
   //senses
   if(b.senses!=""){
-    console.log(b.senses)
     lista = "<h4 style='color: white;'> passive perception: " + b.senses.passive_perception
     if(b.senses.darkvision!=null)
     lista +="<br> darkvision: " + b.senses.darkvision
@@ -229,6 +228,23 @@ lista =""
 
 }
 
+const action = document.getElementById("action")
+action1 = document.createElement("h4")
+
+function actions(b){
+  let lista=""
+
+  action1.innerHTML = lista
+  action.appendChild(action1)
+
+  lista = "<b style='color: black;'>"+b.actions[0].name +":</b><br>" + b.actions[0].desc + "<br>"
+  for(let i=1; i<b.actions.length; i++){
+    lista +="<br>" +"<b style='color: black;'>"+ b.actions[i].name + ":</b><br>" + b.actions[i].desc + "<br>"
+  }
+  action1.innerHTML = lista
+  action.appendChild(action1)
+  
+}
 
 
 fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
@@ -242,6 +258,7 @@ fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
       stat(b)//classe armatura vita velocità
       stats(b)//statistiche
       ability(b)//abilità
+      actions(b)//attacchi
 
       const btnSearch = document.getElementById("search")
       btnSearch.onclick  = () => {
@@ -253,6 +270,7 @@ fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
         else{
           fetch("https://www.dnd5eapi.co/api/monsters/" + input).then(r => r.json())
           .then(b => {
+            console.log(b.actions)
             infos(b)//nome e informazioni del mostro
             stat(b)//classe armatura vita velocità
             stats(b)//statistiche
