@@ -87,6 +87,7 @@ function stat(b){
   speed.appendChild(speed1)
 }
 
+//creo gli elementi fuori dalla funzione per sovrascriverli e non crearne di nuovi ad ogni chiamata
 const proficiencies = document.getElementById("proficiencies")
 let proficiencies1 = document.createElement("h4")
 
@@ -112,13 +113,31 @@ const xp = document.getElementById("xp")
 let xp1 = document.createElement("h4")
 
 function ability(b){
-
+//resetto i campi per le nuove informazini
   let lista=""
   proficiencies1.innerHTML = lista
-    proficiencies.appendChild(proficiencies1)
+  proficiencies.appendChild(proficiencies1)
 
-    cond1.innerHTML = lista
-    cond.appendChild(cond1)  
+  cond1.innerHTML = lista
+  cond.appendChild(cond1)
+  
+  dm_im1.innerHTML = lista
+  dm_im.appendChild(dm_im1)
+
+  dm_vu1.innerHTML = lista
+  dm_vu.appendChild(dm_vu1)
+
+  dm_re1.innerHTML = lista
+  dm_re.appendChild(dm_re1)
+
+  senses1.innerHTML = lista
+  senses.appendChild(senses1)
+
+  languages1.innerHTML = lista
+  languages.appendChild(languages1)
+
+  xp1.innerHTML=lista
+  xp.appendChild(xp1)
 
   //proficiencies
   if(b.proficiencies!=""){
@@ -141,15 +160,72 @@ for(let i=1; i<b.condition_immunities.length; i++){
 lista += "</h4>"
 cond1.innerHTML = lista
 cond.appendChild(cond1)
+lista =""
   }
 
+ //damage_immunities 
+if(b.damage_immunities!=""){
+    lista = "<h4 style='color: white;'>" + b.damage_immunities[0]
+for(let i=1; i<b.damage_immunities.length; i++){
+  lista += "<br>" + b.damage_immunities[i]
+}
+lista += "</h4>"
+dm_im1.innerHTML = lista
+dm_im.appendChild(dm_im1)
+lista =""
+  }
 
-  /*
-  for(let i=0; i<b.condition_immunities.length; i++){
-    cond1.innerHTML ="<h4 style='color: white;'>" + b.condition_immunities[i].name+ "</h4>"
-    cond.appendChild(cond1)
-    cond1 = document.createElement("h4")
-  }*/
+//damage_vulnerabilities
+  if(b.damage_vulnerabilities!=""){
+    lista = "<h4 style='color: white;'>" + b.damage_vulnerabilities[0]
+for(let i=1; i<b.damage_vulnerabilities.length; i++){
+  lista += "<br>" + b.damage_vulnerabilities[i]
+}
+lista += "</h4>"
+dm_vu1.innerHTML = lista
+dm_vu.appendChild(dm_vu1)
+lista =""
+  }
+
+  //damage_resistances
+  if(b.damage_resistances!=""){
+    lista = "<h4 style='color: white;'>" + b.damage_resistances[0]
+for(let i=1; i<b.damage_resistances.length; i++){
+  lista += "<br>" + b.damage_resistances[i]
+}
+lista += "</h4>"
+dm_re1.innerHTML = lista
+dm_re.appendChild(dm_re1)
+lista =""
+  }
+
+  //senses
+  if(b.senses!=""){
+    console.log(b.senses)
+    lista = "<h4 style='color: white;'> passive perception: " + b.senses.passive_perception
+    if(b.senses.darkvision!=null)
+    lista +="<br> darkvision: " + b.senses.darkvision
+    if(b.senses.blindsight!=null)
+    lista +="<br> blindsight: " + b.senses.blindsight
+
+lista += "</h4>"
+senses1.innerHTML = lista
+senses.appendChild(senses1)
+lista =""
+  }
+
+  //languages
+    if(b.languages!=""){
+      lista = "<h4 style='color: white;'>" + b.languages +"</h4>"
+  languages1.innerHTML = lista
+  languages.appendChild(languages1)
+  lista =""
+    }
+
+    //xp
+    lista = "<h4 style='color: white;'>" + b.challenge_rating + "(" + b.xp + ")</h4>"
+    xp1.innerHTML=lista
+    xp.appendChild(xp1)
 
 }
 
