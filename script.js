@@ -246,39 +246,39 @@ function actions(b){
   
 }
 
-
-fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
-.then(b => { 
-  search(b)//inserisci elementi nella barra di ricerca
-  })
-    
+function list(){
+  fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
+  .then(b => { 
+    search(b)//inserisci elementi nella barra di ricerca
+    })
     fetch("https://www.dnd5eapi.co/api/monsters/adult-copper-dragon").then(r => r.json())
-    .then(b => { 
+      .then(b => { 
+        infos(b)//nome e informazioni del mostro
+        stat(b)//classe armatura vita velocità
+        stats(b)//statistiche
+        ability(b)//abilità
+        actions(b)//attacchi
+  })
+}
+
+list()
+
+const btnSearch = document.getElementById("search")
+btnSearch.onclick  = () => {
+  console.log("ready")
+  const input = document.getElementById("input").value
+  if(input==""){
+    console.log("ma anche no")
+  }
+  else{
+    fetch("https://www.dnd5eapi.co/api/monsters/" + input).then(r => r.json())
+    .then(b => {
+      console.log(b)
       infos(b)//nome e informazioni del mostro
       stat(b)//classe armatura vita velocità
       stats(b)//statistiche
       ability(b)//abilità
       actions(b)//attacchi
-
-      const btnSearch = document.getElementById("search")
-      btnSearch.onclick  = () => {
-        console.log("ready")
-        const input = document.getElementById("input").value
-        if(input==""){
-          console.log("ma anche no")
-        }
-        else{
-          fetch("https://www.dnd5eapi.co/api/monsters/" + input).then(r => r.json())
-          .then(b => {
-            console.log(b.actions)
-            infos(b)//nome e informazioni del mostro
-            stat(b)//classe armatura vita velocità
-            stats(b)//statistiche
-            ability(b)//abilità
-            actions(b)//attacchi
-          })
-        }
-      }
-
     })
-      
+  }
+}
