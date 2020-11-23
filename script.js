@@ -83,7 +83,16 @@ function stat(b){
   point1.innerHTML=b.hit_points + "<br><p style='color: DarkSlateGray;'>.</p>"
   hit_points.appendChild(point1)
 
-  speed1.innerHTML=b.speed.walk
+  if(b.speed.walk!=null){    
+    speed1.innerHTML="<h1 style='background-image: url(img/orma.png); width: 81px; height: 72px;'>"+b.speed.walk+"</h1>"
+  }
+else if(b.speed.fly!=null){//add immagine fly
+    speed1.innerHTML="<h1 style='background-image: url(img/orma.png); width: 81px; height: 72px;'>"+b.speed.fly+"</h1>"
+  }
+  else if(b.speed.swim!=null){//add immagine swim
+    speed1.innerHTML="<h1 style='background-image: url(img/orma.png); width: 81px; height: 72px;'>"+b.speed.swim+"</h1>"
+  }
+
   speed.appendChild(speed1)
 }
 
@@ -247,22 +256,25 @@ function actions(b){
 }
 
 function list(){
-  fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
-  .then(b => { 
-    search(b)//inserisci elementi nella barra di ricerca
-    })
-    fetch("https://www.dnd5eapi.co/api/monsters/adult-copper-dragon").then(r => r.json())
-      .then(b => { 
-        infos(b)//nome e informazioni del mostro
-        stat(b)//classe armatura vita velocità
-        stats(b)//statistiche
-        ability(b)//abilità
-        actions(b)//attacchi
-  })
+
 }
 
 list()
 
+fetch("https://www.dnd5eapi.co/api/monsters").then(r => r.json())
+.then(b => { 
+  search(b)//inserisci elementi nella barra di ricerca
+  })
+  fetch("https://www.dnd5eapi.co/api/monsters/adult-copper-dragon").then(r => r.json())
+    .then(b => { 
+      infos(b)//nome e informazioni del mostro
+      stat(b)//classe armatura vita velocità
+      stats(b)//statistiche
+      ability(b)//abilità
+      actions(b)//attacchi
+
+
+//schiaccia il bottone di ricerca e restituisce le informazioni del mostro selezionato
 const btnSearch = document.getElementById("search")
 btnSearch.onclick  = () => {
   console.log("ready")
@@ -282,3 +294,40 @@ btnSearch.onclick  = () => {
     })
   }
 }
+//schiaccia sulla velocità per vedere le varianti della statistica
+  speed.onclick = () => {
+    if(speed.textContent == b.speed.walk){
+      if(b.speed.fly!=null){//add immagine fly,swim
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.fly+ "</h1>" 
+        speed.appendChild(speed1) 
+      }
+      else if(b.speed.swim!=null){
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.swim+ "</h1>"
+        speed.appendChild(speed1)
+      }
+    }
+    else if(speed.textContent == b.speed.fly){
+      if(b.speed.swim!=null){
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.swim+ "</h1>"
+        speed.appendChild(speed1) 
+      }
+      else if(b.speed.walk!=null){
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.walk+ "</h1>"
+        speed.appendChild(speed1)
+      }
+    }
+    else if(speed.textContent == b.speed.swim){
+      if(b.speed.walk!=null){
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.walk+ "</h1>"
+        speed.appendChild(speed1) 
+      }
+      else if(b.speed.fly!=null){
+        speed1.innerHTML="<h1 style='background-image: url(img/orma.png);width: 81px; height: 72px;'>" +b.speed.fly+ "</h1>"
+        speed.appendChild(speed1)
+      }
+    }
+    
+  }
+
+
+})
